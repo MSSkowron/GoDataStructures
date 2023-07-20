@@ -29,7 +29,7 @@ func (s *Stack[T]) Pop() (T, error) {
 
 	item = s.data[len(s.data)-1]
 
-	s.data = s.data[:len(s.data)]
+	s.data = s.data[:len(s.data)-1]
 
 	return item, nil
 }

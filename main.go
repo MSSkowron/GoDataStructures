@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/MSSkowron/GoDataStructesAndAlgorithms/stack"
+	"github.com/MSSkowron/GoDataStructuresAndAlgorithms/stack"
 )
 
 func main() {
