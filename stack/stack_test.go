@@ -90,9 +90,12 @@ func TestSize(t *testing.T) {
 func TestIsEmpty(t *testing.T) {
 	s := New[int]()
 
+	isEmpty := s.IsEmpty()
+	assert.Equal(t, true, isEmpty)
+
 	s.Push(10)
 
-	isEmpty := s.IsEmpty()
+	isEmpty = s.IsEmpty()
 	assert.Equal(t, false, isEmpty)
 
 	_, _ = s.Pop()

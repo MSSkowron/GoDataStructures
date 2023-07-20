@@ -2,9 +2,7 @@ package stack
 
 import "errors"
 
-var (
-	ErrEmptyStack = errors.New("stack is empty")
-)
+var ErrEmptyStack = errors.New("stack is empty")
 
 type Stack[T any] struct {
 	data []T
