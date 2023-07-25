@@ -59,7 +59,7 @@ func TestPeek(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, 10, item)
 
-	s.Pop()
+	_, _ = s.Pop()
 
 	item, err = s.Peek()
 	assert.ErrorIs(t, ErrEmptyStack, err)
