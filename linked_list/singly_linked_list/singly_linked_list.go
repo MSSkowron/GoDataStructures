@@ -57,6 +57,7 @@ func (ll *LinkedList[T]) Delete(value T) {
 
 	if ll.head.value == value {
 		ll.head = ll.head.next
+		ll.length--
 		return
 	}
 
@@ -64,6 +65,7 @@ func (ll *LinkedList[T]) Delete(value T) {
 	for curr.next != nil {
 		if curr.next.value == value {
 			curr.next = curr.next.next
+			ll.length--
 			return
 		}
 
