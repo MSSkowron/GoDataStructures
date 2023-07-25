@@ -11,14 +11,6 @@ var (
 	ErrHeapIsEmpty = errors.New("heap is empty")
 )
 
-// Heap is the interface for a heap
-type Heap[T constraints.Ordered] interface {
-	Insert(T)
-	Extract() T
-	IsEmpty() bool
-	Size() int
-}
-
 func swap[T constraints.Ordered](arr []T, i, j int) {
 	arr[i], arr[j] = arr[j], arr[i]
 }
