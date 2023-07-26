@@ -84,6 +84,19 @@ func (ll *LinkedList[T]) Delete(value T) {
 	}
 }
 
+func (ll *LinkedList[T]) Contains(value T) bool {
+	curr := ll.head
+	for curr != nil {
+		if curr.value == value {
+			return true
+		}
+
+		curr = curr.next
+	}
+
+	return false
+}
+
 func (ll *LinkedList[T]) Print() {
 	if ll.head == nil {
 		fmt.Println("nil")
