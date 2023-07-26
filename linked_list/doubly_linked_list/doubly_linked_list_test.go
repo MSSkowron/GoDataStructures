@@ -63,6 +63,11 @@ func TestDelete(t *testing.T) {
 	// Test deleting a non-existing value
 	ll.Delete(10)
 	assertLinkedListEqual(t, ll, []int{2, 4})
+
+	// Test deleting all values
+	ll.Delete(2)
+	ll.Delete(4)
+	assertLinkedListEqual(t, ll, []int{})
 }
 
 func TestContains(t *testing.T) {
@@ -73,6 +78,17 @@ func TestContains(t *testing.T) {
 	}
 
 	assert.False(t, ll.Contains(10))
+}
+
+func TestLength(t *testing.T) {
+	ll := buildDoublyLinkedList()
+
+	assert.Equal(t, 5, ll.Length())
+
+	for i := 5; i >= 1; i-- {
+		ll.Delete(i)
+		assert.Equal(t, i-1, ll.Length())
+	}
 }
 
 func assertLinkedListEqual(t *testing.T, ll *LinkedList[int], expected []int) {

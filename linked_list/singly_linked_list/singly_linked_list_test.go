@@ -75,6 +75,17 @@ func TestContains(t *testing.T) {
 	assert.False(t, ll.Contains(10))
 }
 
+func TestLength(t *testing.T) {
+	ll := buildSinglyLinkedList()
+
+	assert.Equal(t, 5, ll.Length())
+
+	for i := 5; i >= 1; i-- {
+		ll.Delete(i)
+		assert.Equal(t, i-1, ll.Length())
+	}
+}
+
 func assertLinkedListEqual(t *testing.T, ll *LinkedList[int], expected []int) {
 	assert.Equal(t, len(expected), ll.length)
 

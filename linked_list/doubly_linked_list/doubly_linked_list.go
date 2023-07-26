@@ -64,8 +64,12 @@ func (ll *LinkedList[T]) Delete(value T) {
 
 	if ll.head.value == value {
 		ll.head = ll.head.next
-		ll.head.prev = nil
 		ll.length--
+
+		if ll.head != nil {
+			ll.head.prev = nil
+		}
+
 		return
 	}
 
