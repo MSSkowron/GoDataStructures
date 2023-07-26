@@ -97,6 +97,10 @@ func (ll *LinkedList[T]) Contains(value T) bool {
 	return false
 }
 
+func (ll *LinkedList[T]) Length() int {
+	return ll.length
+}
+
 func (ll *LinkedList[T]) Print() {
 	if ll.head == nil {
 		fmt.Println("nil")

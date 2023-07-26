@@ -13,7 +13,7 @@ func TestNew(t *testing.T) {
 
 	for i := range ht.arr {
 		assert.NotNil(t, ht.arr[i])
-		assert.Nil(t, ht.arr[i].head)
+		assert.Equal(t, 0, ht.arr[i].Length())
 	}
 }
 
@@ -22,15 +22,13 @@ func TestInsert(t *testing.T) {
 
 	ht.Insert("foo")
 	idx := hash("foo")
-	assert.NotNil(t, ht.arr[idx].head)
-	assert.Equal(t, "foo", ht.arr[idx].head.key)
-	assert.Nil(t, ht.arr[idx].head.next)
+	assert.Equal(t, 1, ht.arr[idx].Length())
+	assert.True(t, ht.arr[idx].Contains("foo"))
 
 	ht.Insert("bar")
 	idx = hash("bar")
-	assert.NotNil(t, ht.arr[idx].head)
-	assert.Equal(t, "bar", ht.arr[idx].head.key)
-	assert.Nil(t, ht.arr[idx].head.next)
+	assert.Equal(t, 1, ht.arr[idx].Length())
+	assert.True(t, ht.arr[idx].Contains("bar"))
 }
 
 func TestDelete(t *testing.T) {
@@ -40,11 +38,13 @@ func TestDelete(t *testing.T) {
 
 	ht.Delete("foo")
 	idx := hash("foo")
-	assert.Nil(t, ht.arr[idx].head)
+	assert.Equal(t, 0, ht.arr[idx].Length())
+	assert.False(t, ht.arr[idx].Contains("foo"))
 
 	ht.Delete("bar")
 	idx = hash("bar")
-	assert.Nil(t, ht.arr[idx].head)
+	assert.Equal(t, 0, ht.arr[idx].Length())
+	assert.False(t, ht.arr[idx].Contains("bar"))
 }
 
 func TestSearch(t *testing.T) {
