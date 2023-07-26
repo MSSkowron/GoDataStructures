@@ -130,6 +130,53 @@ func TestDequeue(t *testing.T) {
 	assert.Equal(t, ErrPriorityQueueIsEmpty, err)
 }
 
+func TestPeek(t *testing.T) {
+	pq := New[int, testingStruct]()
+	pq.Enqueue(1, testingStruct{
+		a: 1,
+		b: "a",
+	})
+	pq.Enqueue(2, testingStruct{
+		a: 2,
+		b: "b",
+	})
+	pq.Enqueue(3, testingStruct{
+		a: 3,
+		b: "c",
+	})
+
+	value, err := pq.Peek()
+	assert.Nil(t, err)
+	assert.Equal(t, testingStruct{
+		a: 3,
+		b: "c",
+	}, value)
+
+	_, _ = pq.Dequeue()
+
+	value, err = pq.Peek()
+	assert.Nil(t, err)
+	assert.Equal(t, testingStruct{
+		a: 2,
+		b: "b",
+	}, value)
+
+	_, _ = pq.Dequeue()
+
+	value, err = pq.Peek()
+	assert.Nil(t, err)
+	assert.Equal(t, testingStruct{
+		a: 1,
+		b: "a",
+	}, value)
+
+	_, _ = pq.Dequeue()
+
+	_, err = pq.Peek()
+	assert.NotNil(t, err)
+	assert.Equal(t, ErrPriorityQueueIsEmpty, err)
+}
+
 func TestIsEmpty(t *testing.T) {
 	pq := New[int, testingStruct]()
 	assert.True(t, pq.IsEmpty())

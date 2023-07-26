@@ -43,8 +43,8 @@ func (pq *PriorityQueue[K, V]) Enqueue(priority K, value V) {
 
 // Dequeue removes the item with the highest priority from the priority queue.
 func (pq *PriorityQueue[K, V]) Dequeue() (V, error) {
-	var value V
 	if pq.IsEmpty() {
+		var value V
 		return value, ErrPriorityQueueIsEmpty
 	}
 
@@ -55,6 +55,15 @@ func (pq *PriorityQueue[K, V]) Dequeue() (V, error) {
 	pq.heapifyDown()
 
 	return item.value, nil
+}
+
+func (pq *PriorityQueue[K, V]) Peek() (V, error) {
+	if pq.IsEmpty() {
+		var value V
+		return value, ErrPriorityQueueIsEmpty
+	}
+
+	return pq.arr[0].value, nil
 }
 
 // IsEmpty returns true if the priority queue is empty, false otherwise.
