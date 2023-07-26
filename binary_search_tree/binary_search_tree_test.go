@@ -1,4 +1,4 @@
-package bst
+package binarysearchtree
 
 import (
 	"testing"
@@ -9,26 +9,26 @@ import (
 func TestNewNode(t *testing.T) {
 	n := NewNode[int](10)
 	assert.NotNil(t, n, "bst node is not empty")
-	assert.Equal(t, n.Value, 10)
+	assert.Equal(t, n.value, 10)
 }
 
 func TestInsert(t *testing.T) {
 	n := buildIntTree()
 
-	assert.NotNil(t, n.Right)
-	assert.Equal(t, 20, n.Right.Value)
+	assert.NotNil(t, n.right)
+	assert.Equal(t, 20, n.right.value)
 
-	assert.NotNil(t, n.Left)
-	assert.Equal(t, 0, n.Left.Value)
+	assert.NotNil(t, n.left)
+	assert.Equal(t, 0, n.left.value)
 
-	assert.NotNil(t, n.Left.Right)
-	assert.Equal(t, 5, n.Left.Right.Value)
+	assert.NotNil(t, n.left.right)
+	assert.Equal(t, 5, n.left.right.value)
 
-	assert.NotNil(t, n.Right.Left)
-	assert.Equal(t, 15, n.Right.Left.Value)
+	assert.NotNil(t, n.right.left)
+	assert.Equal(t, 15, n.right.left.value)
 
-	assert.NotNil(t, n.Right.Right)
-	assert.Equal(t, 30, n.Right.Right.Value)
+	assert.NotNil(t, n.right.right)
+	assert.Equal(t, 30, n.right.right.value)
 }
 
 func TestDeleteLeaf(t *testing.T) {
@@ -36,12 +36,12 @@ func TestDeleteLeaf(t *testing.T) {
 
 	n = n.Delete(5)
 	assert.NotNil(t, n)
-	assert.Equal(t, 10, n.Value)
-	assert.Equal(t, 0, n.Left.Value)
-	assert.Nil(t, n.Left.Right)
-	assert.Equal(t, 20, n.Right.Value)
-	assert.Equal(t, 30, n.Right.Right.Value)
-	assert.Equal(t, 15, n.Right.Left.Value)
+	assert.Equal(t, 10, n.value)
+	assert.Equal(t, 0, n.left.value)
+	assert.Nil(t, n.left.right)
+	assert.Equal(t, 20, n.right.value)
+	assert.Equal(t, 30, n.right.right.value)
+	assert.Equal(t, 15, n.right.left.value)
 }
 
 func TestDeleteRoot(t *testing.T) {
@@ -49,12 +49,12 @@ func TestDeleteRoot(t *testing.T) {
 
 	n = n.Delete(10)
 	assert.NotNil(t, n)
-	assert.Equal(t, 15, n.Value)
-	assert.Equal(t, 0, n.Left.Value)
-	assert.Equal(t, 5, n.Left.Right.Value)
-	assert.Equal(t, 20, n.Right.Value)
-	assert.Equal(t, 30, n.Right.Right.Value)
-	assert.Nil(t, n.Right.Left)
+	assert.Equal(t, 15, n.value)
+	assert.Equal(t, 0, n.left.value)
+	assert.Equal(t, 5, n.left.right.value)
+	assert.Equal(t, 20, n.right.value)
+	assert.Equal(t, 30, n.right.right.value)
+	assert.Nil(t, n.right.left)
 }
 
 func TestDeleteNodeWithOneChild(t *testing.T) {
@@ -62,24 +62,24 @@ func TestDeleteNodeWithOneChild(t *testing.T) {
 
 	n = n.Delete(0)
 	assert.NotNil(t, n)
-	assert.Equal(t, 10, n.Value)
-	assert.Equal(t, 5, n.Left.Value)
-	assert.Nil(t, n.Left.Right)
-	assert.Nil(t, n.Left.Left)
-	assert.Equal(t, 20, n.Right.Value)
-	assert.Equal(t, 30, n.Right.Right.Value)
-	assert.Equal(t, 15, n.Right.Left.Value)
+	assert.Equal(t, 10, n.value)
+	assert.Equal(t, 5, n.left.value)
+	assert.Nil(t, n.left.right)
+	assert.Nil(t, n.left.left)
+	assert.Equal(t, 20, n.right.value)
+	assert.Equal(t, 30, n.right.right.value)
+	assert.Equal(t, 15, n.right.left.value)
 }
 
 func TestDeleteNotExistingNode(t *testing.T) {
 	n := buildIntTree()
 
 	n = n.Delete(100)
-	assert.Equal(t, 20, n.Right.Value)
-	assert.Equal(t, 0, n.Left.Value)
-	assert.Equal(t, 5, n.Left.Right.Value)
-	assert.Equal(t, 15, n.Right.Left.Value)
-	assert.Equal(t, 30, n.Right.Right.Value)
+	assert.Equal(t, 20, n.right.value)
+	assert.Equal(t, 0, n.left.value)
+	assert.Equal(t, 5, n.left.right.value)
+	assert.Equal(t, 15, n.right.left.value)
+	assert.Equal(t, 30, n.right.right.value)
 }
 
 func TestDeleteNilNode(t *testing.T) {
@@ -98,15 +98,15 @@ func TestSearch(t *testing.T) {
 
 	foundNode = n.Search(5)
 	assert.NotNil(t, foundNode)
-	assert.Equal(t, n.Left.Right, foundNode)
+	assert.Equal(t, n.left.right, foundNode)
 
 	foundNode = n.Search(15)
 	assert.NotNil(t, foundNode)
-	assert.Equal(t, n.Right.Left, foundNode)
+	assert.Equal(t, n.right.left, foundNode)
 
 	foundNode = n.Search(30)
 	assert.NotNil(t, foundNode)
-	assert.Equal(t, n.Right.Right, foundNode)
+	assert.Equal(t, n.right.right, foundNode)
 }
 
 func buildIntTree() *Node[int] {

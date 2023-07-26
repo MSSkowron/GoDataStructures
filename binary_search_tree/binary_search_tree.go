@@ -1,17 +1,21 @@
-package bst
+package binarysearchtree
 
-import "golang.org/x/exp/constraints"
+import (
+	"fmt"
+
+	"golang.org/x/exp/constraints"
+)
 
 // Node is a generic binary search tree node
 type Node[T constraints.Ordered] struct {
-	Value T
-	Left  *Node[T]
-	Right *Node[T]
+	value T
+	left  *Node[T]
+	right *Node[T]
 }
 
 // NewNode creates a new binary search tree node
 func NewNode[T constraints.Ordered](value T) *Node[T] {
-	return &Node[T]{Value: value}
+	return &Node[T]{value: value}
 }
 
 // Insert inserts a new node into the binary search tree
@@ -20,26 +24,26 @@ func (n *Node[T]) Insert(value T) *Node[T] {
 		return NewNode[T](value)
 	}
 
-	if n.Value == value {
+	if n.value == value {
 		return n
 	}
 
-	if value > n.Value {
-		if n.Right == nil {
-			n.Right = NewNode[T](value)
+	if value > n.value {
+		if n.right == nil {
+			n.right = NewNode[T](value)
 			return n
 		}
 
-		n.Right.Insert(value)
+		n.right.Insert(value)
 		return n
 	}
 
-	if n.Left == nil {
-		n.Left = NewNode[T](value)
+	if n.left == nil {
+		n.left = NewNode[T](value)
 		return n
 	}
 
-	n.Left.Insert(value)
+	n.left.Insert(value)
 	return n
 }
 
@@ -49,25 +53,25 @@ func (n *Node[T]) Delete(value T) *Node[T] {
 		return nil
 	}
 
-	if value < n.Value {
-		n.Left = n.Left.Delete(value)
-	} else if value > n.Value {
-		n.Right = n.Right.Delete(value)
+	if value < n.value {
+		n.left = n.left.Delete(value)
+	} else if value > n.value {
+		n.right = n.right.Delete(value)
 	} else {
 		// Case 1: Node to be deleted has one or no children
-		if n.Left == nil {
-			return n.Right
-		} else if n.Right == nil {
-			return n.Left
+		if n.left == nil {
+			return n.right
+		} else if n.right == nil {
+			return n.left
 		}
 
 		// Case 2: Node to be deleted has two children
 		// Find the minimum value in the right subtree (successor)
-		minRight := n.Right.findMinimum()
+		minright := n.right.findMinimum()
 		// Replace the current node's value with the successor value
-		n.Value = minRight.Value
+		n.value = minright.value
 		// Delete the successor node from the right subtree
-		n.Right = n.Right.Delete(minRight.Value)
+		n.right = n.right.Delete(minright.value)
 	}
 
 	return n
@@ -75,8 +79,8 @@ func (n *Node[T]) Delete(value T) *Node[T] {
 
 func (n *Node[T]) findMinimum() *Node[T] {
 	node := n
-	for node.Left != nil {
-		node = node.Left
+	for node.left != nil {
+		node = node.left
 	}
 	return node
 }
@@ -87,13 +91,43 @@ func (n *Node[T]) Search(value T) *Node[T] {
 		return nil
 	}
 
-	if n.Value == value {
+	if n.value == value {
 		return n
 	}
 
-	if value > n.Value {
-		return n.Right.Search(value)
+	if value > n.value {
+		return n.right.Search(value)
 	}
 
-	return n.Left.Search(value)
+	return n.left.Search(value)
+}
+
+func (n *Node[T]) InorderTraversal() {
+	if n == nil {
+		return
+	}
+
+	n.left.InorderTraversal()
+	fmt.Printf("%v ", n.value)
+	n.right.InorderTraversal()
+}
+
+func (n *Node[T]) PreorderTraversal() {
+	if n == nil {
+		return
+	}
+
+	fmt.Printf("%v ", n.value)
+	n.left.InorderTraversal()
+	n.right.InorderTraversal()
+}
+
+func (n *Node[T]) PostorderTraversal() {
+	if n == nil {
+		return
+	}
+
+	n.left.InorderTraversal()
+	n.right.InorderTraversal()
+	fmt.Printf("%v ", n.value)
 }
