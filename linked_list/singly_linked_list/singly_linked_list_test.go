@@ -65,6 +65,16 @@ func TestDelete(t *testing.T) {
 	assertLinkedListEqual(t, ll, []int{2, 4})
 }
 
+func TestContains(t *testing.T) {
+	ll := buildSinglyLinkedList()
+
+	for i := 1; i <= 5; i++ {
+		assert.True(t, ll.Contains(i))
+	}
+
+	assert.False(t, ll.Contains(10))
+}
+
 func assertLinkedListEqual(t *testing.T, ll *LinkedList[int], expected []int) {
 	assert.Equal(t, len(expected), ll.length)
 
