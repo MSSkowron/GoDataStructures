@@ -50,6 +50,27 @@ func TestDequeue(t *testing.T) {
 	assert.Equal(t, 0, item)
 }
 
+func TestPeek(t *testing.T) {
+	q := New[int]()
+
+	for i := 10; i <= 100; i += 10 {
+		q.Enqueue(i)
+	}
+
+	for i := 10; i <= 100; i += 10 {
+		item, err := q.Peek()
+
+		assert.NoError(t, err)
+		assert.Equal(t, i, item)
+
+		item, err = q.Dequeue()
+	}
+
+	item, err := q.Peek()
+	assert.ErrorIs(t, ErrEmptyQueue, err)
+	assert.Equal(t, 0, item)
+}
+
 func TestIsEmpty(t *testing.T) {
 	q := New[int]()
 
@@ -65,4 +86,21 @@ func TestIsEmpty(t *testing.T) {
 
 	isEmpty = q.IsEmpty()
 	assert.Equal(t, true, isEmpty)
+}
+
+func TestSize(t *testing.T) {
+	q := New[int]()
+
+	size := q.Size()
+	assert.Equal(t, 0, size)
+
+	q.Enqueue(10)
+
+	size = q.Size()
+	assert.Equal(t, 1, size)
+
+	_, _ = q.Dequeue()
+
+	size = q.Size()
+	assert.Equal(t, 0, size)
 }
