@@ -9,7 +9,6 @@ type ComparableOrdered interface {
 
 func Search[T ComparableOrdered](items []T, value T) int {
 	left, right := 0, len(items)-1
-
 	for left <= right {
 		mid1, mid2 := left+(right-left)/3, right-(right-left)/3
 

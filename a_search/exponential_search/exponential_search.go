@@ -1,6 +1,8 @@
-package binarysearch
+package exponentialsearch
 
-import "golang.org/x/exp/constraints"
+import (
+	"golang.org/x/exp/constraints"
+)
 
 type ComparableOrdered interface {
 	comparable
@@ -8,7 +10,21 @@ type ComparableOrdered interface {
 }
 
 func Search[T ComparableOrdered](items []T, value T) int {
-	left, right := 0, len(items)-1
+	n := len(items)
+
+	if n == 0 {
+		return -1
+	}
+
+	idx := 1
+	for idx < n {
+		if items[idx] >= value {
+			break
+		}
+		idx *= 2
+	}
+
+	left, right := idx/2, min(n-1, idx)
 	for left <= right {
 		mid := (left + right) / 2
 
@@ -24,4 +40,11 @@ func Search[T ComparableOrdered](items []T, value T) int {
 	}
 
 	return -1
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
