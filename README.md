@@ -24,3 +24,5 @@ The "ds" directories contain well-known and essential data structures, thoughtfu
 ### Algorithms (a)
 
 The "a" directories contain well-known and fundamental algorithms, thoughtfully implemented in the Go programming language.
+
+- [**Search**](./a_search/) - Contains various searching algorithms.
