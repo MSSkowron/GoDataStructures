@@ -47,3 +47,25 @@ func (g *GraphAdjList) AddEdge(from, to int) error {
 
 	return nil
 }
+
+// RemoveEdge removes an edge from the graph.
+func (g *GraphAdjList) RemoveEdge(from, to int) error {
+	n := len(g.vertices)
+
+	if from < 0 || from >= n {
+		return ErrIndexOutOfRange
+	}
+
+	if to < 0 || to >= n {
+		return ErrIndexOutOfRange
+	}
+
+	for i, v := range g.vertices[from] {
+		if v == to {
+			g.vertices[from] = append(g.vertices[from][:i], g.vertices[from][i+1:]...)
+			break
+		}
+	}
+
+	return nil
+}

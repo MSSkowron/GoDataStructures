@@ -50,3 +50,26 @@ func TestGraphAdjMatrix_AddEdge(t *testing.T) {
 
 	assert.False(t, n.vertices[1][2])
 }
+
+func TestGraphAdjMatrix_RemoveEdge(t *testing.T) {
+	n := NewGraphAdjMatrix()
+
+	assert.Equal(t, ErrIndexOutOfRange, n.RemoveEdge(0, 1))
+
+	for i := 0; i < 5; i++ {
+		n.AddVertex()
+	}
+
+	assert.Equal(t, ErrIndexOutOfRange, n.RemoveEdge(0, 5))
+
+	assert.Nil(t, n.AddEdge(0, 1))
+	assert.Nil(t, n.AddEdge(0, 2))
+
+	assert.Nil(t, n.RemoveEdge(0, 1))
+	assert.False(t, n.vertices[0][1])
+	assert.False(t, n.vertices[1][0])
+
+	assert.Nil(t, n.RemoveEdge(0, 2))
+	assert.False(t, n.vertices[0][2])
+	assert.False(t, n.vertices[2][0])
+}

@@ -41,3 +41,20 @@ func (g *GraphAdjMatrix) AddEdge(from, to int) error {
 
 	return nil
 }
+
+// RemoveEdge removes an edge from the graph.
+func (g *GraphAdjMatrix) RemoveEdge(from, to int) error {
+	n := len(g.vertices)
+
+	if from < 0 || from >= n {
+		return ErrIndexOutOfRange
+	}
+
+	if to < 0 || to >= n {
+		return ErrIndexOutOfRange
+	}
+
+	g.vertices[from][to] = false
+
+	return nil
+}
