@@ -12,25 +12,22 @@ type node[T constraints.Ordered] struct {
 	prev  *node[T]
 }
 
-func newNode[T constraints.Ordered](value T) *node[T] {
-	return &node[T]{
-		value: value,
-	}
-}
-
+// LinkedList represents a doubly linked list with nodes with values of type T.
 type LinkedList[T constraints.Ordered] struct {
 	head   *node[T]
 	length int
 }
 
+// New creates a new, empty doubly linked list with nodes with values of type T.
 func New[T constraints.Ordered]() *LinkedList[T] {
 	return &LinkedList[T]{}
 }
 
+// Prepend adds a new element at the beginning of the list.
 func (ll *LinkedList[T]) Prepend(value T) {
 	ll.length++
 
-	n := newNode[T](value)
+	n := &node[T]{value: value}
 	n.next = ll.head
 	if ll.head != nil {
 		ll.head.prev = n
@@ -39,11 +36,12 @@ func (ll *LinkedList[T]) Prepend(value T) {
 	ll.head = n
 }
 
+// Append adds a new element at the end of the list.
 func (ll *LinkedList[T]) Append(value T) {
 	ll.length++
 
 	if ll.head == nil {
-		ll.head = newNode[T](value)
+		ll.head = &node[T]{value: value}
 		return
 	}
 
@@ -52,11 +50,12 @@ func (ll *LinkedList[T]) Append(value T) {
 		curr = curr.next
 	}
 
-	n := newNode[T](value)
+	n := &node[T]{value: value}
 	curr.next = n
 	n.prev = curr
 }
 
+// Delete deletes the first occurrence of the given value from the list.
 func (ll *LinkedList[T]) Delete(value T) {
 	if ll.head == nil {
 		return
@@ -88,6 +87,7 @@ func (ll *LinkedList[T]) Delete(value T) {
 	}
 }
 
+// Contains returns true if the list contains the given value, false otherwise.
 func (ll *LinkedList[T]) Contains(value T) bool {
 	curr := ll.head
 	for curr != nil {
@@ -101,10 +101,12 @@ func (ll *LinkedList[T]) Contains(value T) bool {
 	return false
 }
 
+// Length returns the length of the list.
 func (ll *LinkedList[T]) Length() int {
 	return ll.length
 }
 
+// Print prints the list.
 func (ll *LinkedList[T]) Print() {
 	if ll.head == nil {
 		fmt.Println("nil")

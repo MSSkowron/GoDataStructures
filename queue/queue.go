@@ -2,26 +2,27 @@ package queue
 
 import "errors"
 
+// ErrEmptyQueue is returned when the queue is empty.
 var ErrEmptyQueue = errors.New("queue is empty")
 
-// Queue is a generic queue implementation
+// Queue represents a queue of items of type T.
 type Queue[T any] struct {
 	data []T
 }
 
-// New creates a new queue
+// New creates a new, empty queue of items of type T.
 func New[T any]() *Queue[T] {
 	return &Queue[T]{
 		data: make([]T, 0),
 	}
 }
 
-// Enqueue adds an item to the queue
+// Enqueue adds an item to the queue.
 func (q *Queue[T]) Enqueue(item T) {
 	q.data = append(q.data, item)
 }
 
-// Dequeue removes an item from the queue
+// Dequeue removes an item from the queue.
 func (q *Queue[T]) Dequeue() (T, error) {
 	var item T
 
@@ -36,7 +37,7 @@ func (q *Queue[T]) Dequeue() (T, error) {
 	return item, nil
 }
 
-// Peek returns the first item in the queue
+// Peek returns the first item in the queue.
 func (q *Queue[T]) Peek() (T, error) {
 	var item T
 
@@ -47,12 +48,12 @@ func (q *Queue[T]) Peek() (T, error) {
 	return q.data[0], nil
 }
 
-// IsEmpty returns true if the queue is empty, false otherwise
+// IsEmpty returns true if the queue is empty, false otherwise.
 func (q *Queue[T]) IsEmpty() bool {
 	return len(q.data) == 0
 }
 
-// Size returns the size of the queue
+// Size returns the size of the queue.
 func (q *Queue[T]) Size() int {
 	return len(q.data)
 }

@@ -1,20 +1,20 @@
 package graph
 
-// GraphAdjMatrix is a graph represented by an adjacency matrix.
-type GraphAdjMatrix struct {
+// AdjMatrix is a graph represented by an adjacency matrix.
+type AdjMatrix struct {
 	vertices [][]bool
 }
 
-// NewGraphAdjMatrix creates a new graph represented by an adjacency matrix.
-func NewGraphAdjMatrix() *GraphAdjMatrix {
-	return &GraphAdjMatrix{
+// NewAdjMatrix creates a new graph represented by an adjacency matrix.
+func NewAdjMatrix() *AdjMatrix {
+	return &AdjMatrix{
 		vertices: make([][]bool, 0),
 	}
 }
 
-// Vertices adds a vertex to the graph.
+// AddVertex adds a vertex to the graph.
 // Returns the index of the new vertex.
-func (g *GraphAdjMatrix) AddVertex() int {
+func (g *AdjMatrix) AddVertex() int {
 	n := len(g.vertices)
 	newRow := make([]bool, n+1)
 	g.vertices = append(g.vertices, newRow)
@@ -26,7 +26,7 @@ func (g *GraphAdjMatrix) AddVertex() int {
 }
 
 // AddEdge adds an edge to the graph.
-func (g *GraphAdjMatrix) AddEdge(from, to int) error {
+func (g *AdjMatrix) AddEdge(from, to int) error {
 	n := len(g.vertices)
 
 	if from < 0 || from >= n {
@@ -43,7 +43,7 @@ func (g *GraphAdjMatrix) AddEdge(from, to int) error {
 }
 
 // RemoveEdge removes an edge from the graph.
-func (g *GraphAdjMatrix) RemoveEdge(from, to int) error {
+func (g *AdjMatrix) RemoveEdge(from, to int) error {
 	n := len(g.vertices)
 
 	if from < 0 || from >= n {

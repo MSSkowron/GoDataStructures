@@ -1,20 +1,20 @@
 package graph
 
-// GraphAdjList is a graph represented by an adjacency list.
-type GraphAdjList struct {
+// AdjList is a graph represented by an adjacency list.
+type AdjList struct {
 	vertices [][]int
 }
 
-// NewGraphAdjList creates a new graph represented by an adjacency list.
-func NewGraphAdjList() *GraphAdjList {
-	return &GraphAdjList{
+// NewAdjList creates a new graph represented by an adjacency list.
+func NewAdjList() *AdjList {
+	return &AdjList{
 		vertices: make([][]int, 0),
 	}
 }
 
-// Vertices adds a vertex to the graph.
+// AddVertex adds a vertex to the graph.
 // Returns the index of the new vertex.
-func (g *GraphAdjList) AddVertex() int {
+func (g *AdjList) AddVertex() int {
 	n := len(g.vertices)
 
 	g.vertices = append(g.vertices, make([]int, 0))
@@ -23,7 +23,7 @@ func (g *GraphAdjList) AddVertex() int {
 }
 
 // AddEdge adds an edge to the graph.
-func (g *GraphAdjList) AddEdge(from, to int) error {
+func (g *AdjList) AddEdge(from, to int) error {
 	n := len(g.vertices)
 
 	if from < 0 || from >= n {
@@ -49,7 +49,7 @@ func (g *GraphAdjList) AddEdge(from, to int) error {
 }
 
 // RemoveEdge removes an edge from the graph.
-func (g *GraphAdjList) RemoveEdge(from, to int) error {
+func (g *AdjList) RemoveEdge(from, to int) error {
 	n := len(g.vertices)
 
 	if from < 0 || from >= n {

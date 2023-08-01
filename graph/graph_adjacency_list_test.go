@@ -6,15 +6,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNewGraphAdjList(t *testing.T) {
-	n := NewGraphAdjList()
+func TestNewAdjList(t *testing.T) {
+	n := NewAdjList()
 
 	assert.NotNil(t, n)
 	assert.Equal(t, 0, len(n.vertices))
 }
 
-func TestGraphAdjList_AddVertex(t *testing.T) {
-	n := NewGraphAdjList()
+func TestAdjList_AddVertex(t *testing.T) {
+	n := NewAdjList()
 
 	assert.Equal(t, 0, n.AddVertex())
 	assert.Equal(t, 1, n.AddVertex())
@@ -29,8 +29,8 @@ func TestGraphAdjList_AddVertex(t *testing.T) {
 	}
 }
 
-func TestGraphAdjList_AddEdge(t *testing.T) {
-	n := NewGraphAdjList()
+func TestAdjList_AddEdge(t *testing.T) {
+	n := NewAdjList()
 
 	assert.Equal(t, ErrIndexOutOfRange, n.AddEdge(0, 1))
 
@@ -49,8 +49,8 @@ func TestGraphAdjList_AddEdge(t *testing.T) {
 	assert.Equal(t, 2, n.vertices[0][1])
 }
 
-func TestGraphAdjList_RemoveEdge(t *testing.T) {
-	n := NewGraphAdjList()
+func TestAdjList_RemoveEdge(t *testing.T) {
+	n := NewAdjList()
 
 	assert.Equal(t, ErrIndexOutOfRange, n.RemoveEdge(0, 1))
 

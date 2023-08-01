@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	// ErrVertexExists is returned when a vertex is added to a graph that already exists.
+	// ErrVertexAlreadyExists is returned when a vertex is added to a graph that already exists.
 	ErrVertexAlreadyExists = errors.New("vertex with this key already exists")
 	// ErrVertexDoesNotExist is returned when a vertex is referenced that does not exist.
 	ErrVertexDoesNotExist = errors.New("vertex with this key does not exist")
@@ -15,28 +15,28 @@ var (
 // Key represents a unique identifier for a vertex in a graph.
 type Key int
 
-// Graph represents a set of vertices connected by edges.
+// Graph represents a set of vertices of type T connected by edges.
 type Graph[T any] struct {
 	Vertices map[Key]*Vertex[T]
 }
 
-// Vertex represents a vertex in a graph.
+// Vertex represents a vertex with a value of type T in the graph.
 type Vertex[T any] struct {
 	Value T
 	Edges map[Key]*Edge[T]
 }
 
-// Edge represents an edge in the graph and the destination vertex.
+// Edge represents an edge with a weight between two vertices in the graph.
 type Edge[T any] struct {
 	Weight int
 	Vertex *Vertex[T]
 }
 
-// GraphOption is a function that modifies a graph.
-type GraphOption[T any] func(*Graph[T])
+// Option is a function that modifies a graph.
+type Option[T any] func(*Graph[T])
 
-// NewGraph creates a new empty graph.
-func NewGraph[T any](opts ...GraphOption[T]) *Graph[T] {
+// NewGraph creates a new empty graph of vertices with values of type T.
+func NewGraph[T any](opts ...Option[T]) *Graph[T] {
 	g := &Graph[T]{
 		Vertices: make(map[Key]*Vertex[T]),
 	}
@@ -49,14 +49,14 @@ func NewGraph[T any](opts ...GraphOption[T]) *Graph[T] {
 }
 
 // WithVertices sets the vertices of the graph.
-func WithVertices[T any](vertices map[Key]*Vertex[T]) GraphOption[T] {
+func WithVertices[T any](vertices map[Key]*Vertex[T]) Option[T] {
 	return func(g *Graph[T]) {
 		g.Vertices = vertices
 	}
 }
 
 // WithAdjacencyList sets the vertices of the graph using an adjacency list.
-func WithAdjacencyList[T any](list map[int][]int) GraphOption[T] {
+func WithAdjacencyList[T any](list map[int][]int) Option[T] {
 	return func(g *Graph[T]) {
 		for k, v := range list {
 			g.Vertices[Key(k)] = &Vertex[T]{

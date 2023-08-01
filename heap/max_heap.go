@@ -2,24 +2,25 @@ package heap
 
 import "golang.org/x/exp/constraints"
 
+// MaxHeap represents a max heap with elements of type T.
 type MaxHeap[T constraints.Ordered] struct {
 	arr []T
 }
 
-// NewMaxHeap returns a new max heap
+// NewMaxHeap creates a new max heap with elements of type T.
 func NewMaxHeap[T constraints.Ordered]() *MaxHeap[T] {
 	return &MaxHeap[T]{
 		arr: make([]T, 0),
 	}
 }
 
-// Insert inserts a new element into the heap
+// Insert inserts a new element into the heap.
 func (h *MaxHeap[T]) Insert(val T) {
 	h.arr = append(h.arr, val)
 	h.heapifyUp()
 }
 
-// Extract extracts the minimum element from the heap
+// Extract extracts the minimum element from the heap.
 func (h *MaxHeap[T]) Extract() (T, error) {
 	var max T
 
@@ -33,12 +34,12 @@ func (h *MaxHeap[T]) Extract() (T, error) {
 	return max, nil
 }
 
-// IsEmpty returns true if the heap is empty, false otherwise
+// IsEmpty returns true if the heap is empty, false otherwise.
 func (h *MaxHeap[T]) IsEmpty() bool {
 	return len(h.arr) == 0
 }
 
-// Size returns the size of the heap
+// Size returns the size of the heap.
 func (h *MaxHeap[T]) Size() int {
 	return len(h.arr)
 }

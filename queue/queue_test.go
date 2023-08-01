@@ -59,11 +59,12 @@ func TestPeek(t *testing.T) {
 
 	for i := 10; i <= 100; i += 10 {
 		item, err := q.Peek()
-
 		assert.NoError(t, err)
 		assert.Equal(t, i, item)
 
 		item, err = q.Dequeue()
+		assert.NoError(t, err)
+		assert.Equal(t, i, item)
 	}
 
 	item, err := q.Peek()

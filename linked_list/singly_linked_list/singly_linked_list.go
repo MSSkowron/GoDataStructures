@@ -11,34 +11,32 @@ type node[T constraints.Ordered] struct {
 	next  *node[T]
 }
 
-func newNode[T constraints.Ordered](value T) *node[T] {
-	return &node[T]{
-		value: value,
-	}
-}
-
+// LinkedList represents a singly linked list with nodes with values of type T.
 type LinkedList[T constraints.Ordered] struct {
 	head   *node[T]
 	length int
 }
 
+// New creates a new, empty singly linked list with nodes with values of type T.
 func New[T constraints.Ordered]() *LinkedList[T] {
 	return &LinkedList[T]{}
 }
 
+// Prepend adds a new element at the beginning of the list.
 func (ll *LinkedList[T]) Prepend(value T) {
 	ll.length++
 
-	n := newNode[T](value)
+	n := &node[T]{value: value}
 	n.next = ll.head
 	ll.head = n
 }
 
+// Append adds a new element at the end of the list.
 func (ll *LinkedList[T]) Append(value T) {
 	ll.length++
 
 	if ll.head == nil {
-		ll.head = newNode[T](value)
+		ll.head = &node[T]{value: value}
 		return
 	}
 
@@ -47,9 +45,10 @@ func (ll *LinkedList[T]) Append(value T) {
 		curr = curr.next
 	}
 
-	curr.next = newNode[T](value)
+	curr.next = &node[T]{value: value}
 }
 
+// Delete deletes an element from the list.
 func (ll *LinkedList[T]) Delete(value T) {
 	if ll.head == nil {
 		return
@@ -73,6 +72,7 @@ func (ll *LinkedList[T]) Delete(value T) {
 	}
 }
 
+// Contains returns true if the list contains the given value, false otherwise.
 func (ll *LinkedList[T]) Contains(value T) bool {
 	curr := ll.head
 	for curr != nil {
@@ -86,10 +86,12 @@ func (ll *LinkedList[T]) Contains(value T) bool {
 	return false
 }
 
+// Length returns the length of the list.
 func (ll *LinkedList[T]) Length() int {
 	return ll.length
 }
 
+// Print prints the list.
 func (ll *LinkedList[T]) Print() {
 	if ll.head == nil {
 		fmt.Println("nil")

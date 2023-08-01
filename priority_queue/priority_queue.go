@@ -6,13 +6,12 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+// ErrPriorityQueueIsEmpty is returned when the priority queue is empty.
 var ErrPriorityQueueIsEmpty = errors.New("priority queue is empty")
 
-// PriorityQueue is a data structure that stores items in order of priority.
+// PriorityQueue represents a priority queue with items of type V and priorities of type K.
 // The item with the highest priority is always at the front of the queue.
 // The priority queue is implemented using a max heap.
-// K is the type of the priority.
-// V is the type of the value.
 type PriorityQueue[K constraints.Ordered, V any] struct {
 	arr []item[K, V]
 }
@@ -22,9 +21,7 @@ type item[K constraints.Ordered, V any] struct {
 	value    V
 }
 
-// New creates a new, empty priority queue.
-// K is the type of the priority.
-// V is the type of the value.
+// New creates a new, empty priority queue with items of type V and priorities of type K.
 func New[K constraints.Ordered, V any]() *PriorityQueue[K, V] {
 	return &PriorityQueue[K, V]{
 		arr: make([]item[K, V], 0),
@@ -57,6 +54,7 @@ func (pq *PriorityQueue[K, V]) Dequeue() (V, error) {
 	return item.value, nil
 }
 
+// Peek returns the item with the highest priority from the priority queue without removing it.
 func (pq *PriorityQueue[K, V]) Peek() (V, error) {
 	if pq.IsEmpty() {
 		var value V

@@ -6,19 +6,19 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// Node is a generic binary search tree node
+// Node represents a binary search tree node of type T.
 type Node[T constraints.Ordered] struct {
 	value T
 	left  *Node[T]
 	right *Node[T]
 }
 
-// NewNode creates a new binary search tree node
+// NewNode creates a new binary search tree node with the given value of type T.
 func NewNode[T constraints.Ordered](value T) *Node[T] {
 	return &Node[T]{value: value}
 }
 
-// Insert inserts a new node into the binary search tree
+// Insert inserts a new node into the binary search tree.
 func (n *Node[T]) Insert(value T) *Node[T] {
 	if n == nil {
 		return NewNode[T](value)
@@ -47,7 +47,7 @@ func (n *Node[T]) Insert(value T) *Node[T] {
 	return n
 }
 
-// Delete deletes a value from the binary search tree
+// Delete deletes a value from the binary search tree.
 func (n *Node[T]) Delete(value T) *Node[T] {
 	if n == nil {
 		return nil
@@ -85,7 +85,7 @@ func (n *Node[T]) findMinimum() *Node[T] {
 	return node
 }
 
-// Search searches a value in the binary search tree
+// Search searches a value in the binary search tree.
 func (n *Node[T]) Search(value T) *Node[T] {
 	if n == nil {
 		return nil
@@ -102,6 +102,7 @@ func (n *Node[T]) Search(value T) *Node[T] {
 	return n.left.Search(value)
 }
 
+// InorderTraversal traverses the binary search tree in inorder fashion.
 func (n *Node[T]) InorderTraversal() {
 	if n == nil {
 		return
@@ -112,6 +113,7 @@ func (n *Node[T]) InorderTraversal() {
 	n.right.InorderTraversal()
 }
 
+// PreorderTraversal traverses the binary search tree in preorder fashion.
 func (n *Node[T]) PreorderTraversal() {
 	if n == nil {
 		return
@@ -122,6 +124,7 @@ func (n *Node[T]) PreorderTraversal() {
 	n.right.InorderTraversal()
 }
 
+// PostorderTraversal traverses the binary search tree in postorder fashion.
 func (n *Node[T]) PostorderTraversal() {
 	if n == nil {
 		return
