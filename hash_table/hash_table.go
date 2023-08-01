@@ -1,6 +1,6 @@
 package hashtable
 
-import sll "github.com/MSSkowron/GoDataStructuresAndAlgorithms/ds_linked_list/singly_linked_list"
+import sll "github.com/MSSkowron/GoDataStructures/linked_list/singly_linked_list"
 
 // ArrSize is the size of the hash table array
 const ArrSize = 100
