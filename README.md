@@ -1,8 +1,8 @@
-# GoDataStructesAndAlgorithms
+# GoDataStructures
 
 This repository contains a comprehensive set of data structures implemented in the Go programming language. The majority of these data structures are designed to be generic, making them versatile and reusable in various scenarios.
 
-### Data Structures
+## Data Structures
 
 Below is a list of the data structures available in this repository along with a brief description of each:
 
@@ -17,3 +17,6 @@ Below is a list of the data structures available in this repository along with a
 - [**Trie**](./trie/): Efficient information retrieval data structure, particularly useful for dictionary-like operations. It's valuable for tasks involving efficient prefix-based searches.
 - [**Set**](./set/): Collection of unique elements, supporting set operations like union, intersection, and difference. It's beneficial for managing unique data and performing set-based calculations.
 
+## License
+
+The project is available as open source under the terms of the MIT License.
