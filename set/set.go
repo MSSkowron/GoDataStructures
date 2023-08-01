@@ -36,3 +36,44 @@ func (s *Set[T]) Has(value T) bool {
 func (s *Set[T]) Size() int {
 	return len(s.data)
 }
+
+// Union returns the union of two sets.
+func (s *Set[T]) Union(other *Set[T]) *Set[T] {
+	unionSet := New[T]()
+
+	for v := range s.data {
+		unionSet.Insert(v)
+	}
+
+	for v := range other.data {
+		unionSet.Insert(v)
+	}
+
+	return unionSet
+}
+
+// Intersection returns the intersection of two sets.
+func (s *Set[T]) Intersection(other *Set[T]) *Set[T] {
+	intersectionSet := New[T]()
+
+	for v := range s.data {
+		if other.Has(v) {
+			intersectionSet.Insert(v)
+		}
+	}
+
+	return intersectionSet
+}
+
+// Difference returns the difference of two sets.
+func (s *Set[T]) Difference(other *Set[T]) *Set[T] {
+	differenceSet := New[T]()
+
+	for v := range s.data {
+		if !other.Has(v) {
+			differenceSet.Insert(v)
+		}
+	}
+
+	return differenceSet
+}
